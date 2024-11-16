@@ -1,4 +1,4 @@
-package com.askimed.nf.test.fastq
+package com.github.lukfor.nft.fastq
 
 import java.nio.file.Path
 

@@ -18,6 +18,16 @@ config {
 }
 ```
 
+**Warning: Plugin is not yet deployed to the plugin repository.**
+
+## Build and Test
+
+The plugin is written in Groovy and uses Gradel to build and test it.
+
+```bash
+./gradlew test-plugin 
+```
+
 ## Examples
 
 nft-fastq extends `path` by a `fastq` property that can be used to read FASTQ files:

@@ -1,3 +1,5 @@
+package com.github.lukfor.nft.fastq
+
 import htsjdk.samtools.fastq.FastqReader
 import htsjdk.samtools.fastq.FastqRecord
 import java.nio.file.Path
