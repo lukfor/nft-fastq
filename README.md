@@ -18,8 +18,6 @@ config {
 }
 ```
 
-**Warning: Plugin is not yet deployed to the plugin repository.**
-
 ## Build and Test
 
 The plugin is written in Groovy and uses Gradel to build and test it.
