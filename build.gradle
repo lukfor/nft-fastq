@@ -1,0 +1,57 @@
+plugins {
+    id 'groovy'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.askimed'
+version = '0.0.1'
+
+description = 'nf-test plugin to support bioinformatics file formats'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+    implementation 'com.github.samtools:htsjdk:4.1.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+}
+
+tasks.withType(GroovyCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xdoclint:none'
+}
+
+tasks.register('test-plugin', Exec) {
+    group = 'verification'
+    description = 'Run nf-test with custom tests and plugins'
+
+    outputs.upToDateWhen { false }
+
+    commandLine 'bash', '-c', 'nf-test test tests/**/*.nf.test --plugins build/libs/*.jar'
+
+    dependsOn shadowJar
+}
+
+
+// This will generate a fat JAR that includes all dependencies
+shadowJar {
+    archiveBaseName.set('nft-fastq')
+    archiveVersion.set(version)
+    archiveClassifier.set('all')
+    mergeServiceFiles()
+    // Exclude Groovy from the final JAR
+    dependencies {
+        exclude(dependency('org.codehaus.groovy:groovy-all'))
+    }    
+}
+
+tasks.build {
+    dependsOn shadowJar
+}
