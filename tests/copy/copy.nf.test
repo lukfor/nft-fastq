@@ -26,19 +26,16 @@ nextflow_process {
       assert fastqFile.getNumberOfRecords() == 3
 
       // Assertion 3: Get all sequences and check their values
-      def sequences = fastqFile.getAllSequences()
-      assert sequences.size() == 3
-      assert sequences == ['AGCTTAGCTA', 'CGTACGATCG', 'TGCATGCATG']
+      assert fastqFile.sequences.size() == 3
+      assert fastqFile.sequences == ['AGCTTAGCTA', 'CGTACGATCG', 'TGCATGCATG']
 
       // Assertion 4: Get all read names and check their values
-      def readNames = fastqFile.getAllReadNames()
-      assert readNames.size() == 3
-      assert readNames == ['SEQ_ID_1', 'SEQ_ID_2', 'SEQ_ID_3']
+      assert fastqFile.readNames.size() == 3
+      assert fastqFile.readNames == ['SEQ_ID_1', 'SEQ_ID_2', 'SEQ_ID_3']
 
       // Assertion 5: Get all quality scores and check their values
-      def qualityScores = fastqFile.getAllQualityScores()
-      assert qualityScores.size() == 3
-      assert qualityScores == ['IIIIIIIIII', 'JJJJJJJJJJ', 'KKKKKKKKKK']
+      assert fastqFile.qualityScores.size() == 3
+      assert fastqFile.qualityScores == ['IIIIIIIIII', 'JJJJJJJJJJ', 'KKKKKKKKKK']
 
       // Assertion 6: Get a specific record by index (index 1 should give the second record)
       def record = fastqFile.getRecordByIndex(1)
@@ -49,6 +46,12 @@ nextflow_process {
 
       // Assertion 6: Get a specific record by name
       def record2 = fastqFile.getRecordByName('SEQ_ID_3')
+      assert record2 != null
+      assert record2.getReadHeader() == 'SEQ_ID_3'
+      assert record2.getReadString() == 'TGCATGCATG'
+      assert record2.getBaseQualityString() == 'KKKKKKKKKK'
+
+      record2 = fastqFile.records['SEQ_ID_3']
       assert record2 != null
       assert record2.getReadHeader() == 'SEQ_ID_3'
       assert record2.getReadString() == 'TGCATGCATG'

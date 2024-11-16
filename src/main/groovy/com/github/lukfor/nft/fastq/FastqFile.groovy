@@ -21,11 +21,22 @@ class FastqFile {
     }
 
     // Method to get all reads from the FASTQ file
-    List<FastqRecord> getAllReads() {
+    List<FastqRecord> getReads() {
         List<FastqRecord> records = []
         FastqReader reader = new FastqReader(fastqFile)
         reader.each { record ->
             records << record
+        }
+        reader.close()
+        return records
+    }
+
+    // Method to get a map of records
+    LinkedHashMap<String, FastqRecord> getRecords() {
+        FastqReader reader = new FastqReader(fastqFile)
+         def records = new LinkedHashMap<String, FastqRecord>()
+        for (FastqRecord r in reader) {
+            records[r.getReadHeader()] = new FastqRecord(r)
         }
         reader.close()
         return records
@@ -63,7 +74,7 @@ class FastqFile {
     }
 
     // Method to get all sequences in the FASTQ file
-    List<String> getAllSequences() {
+    List<String> getSequences() {
         List<String> sequences = []
         FastqReader reader = new FastqReader(fastqFile)
         reader.each { record ->
@@ -74,7 +85,7 @@ class FastqFile {
     }
 
     // Method to get all read names in the FASTQ file
-    List<String> getAllReadNames() {
+    List<String> getReadNames() {
         List<String> names = []
         FastqReader reader = new FastqReader(fastqFile)
         reader.each { record ->
@@ -85,7 +96,7 @@ class FastqFile {
     }
 
     // Method to get all quality scores in the FASTQ file
-    List<String> getAllQualityScores() {
+    List<String> getQualityScores() {
         List<String> qualityScores = []
         FastqReader reader = new FastqReader(fastqFile)
         reader.each { record ->
