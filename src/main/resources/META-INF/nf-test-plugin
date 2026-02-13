@@ -1,5 +1,5 @@
 moduleName=nft-fastq
-moduleVersion=0.0.1
+moduleVersion=0.1.0
 moduleAuthors=Lukas Forer
 extensionClasses=com.github.lukfor.nft.fastq.PathExtension
 extensionMethods=com.github.lukfor.nft.fastq.Methods

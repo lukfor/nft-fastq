@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.askimed'
-version = '0.0.1'
+version = '0.1.0'
 
 description = 'nf-test plugin to support bioinformatics file formats'
 
